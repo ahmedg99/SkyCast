@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:skycast/Features/home/pages/home.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -24,7 +25,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
       // Handle successful login
       // For example, navigate to the home screen
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomeScreen(
+                  username: email,
+                )),
+      );
     } catch (e) {
       setState(() {
         _errorMessage = e.toString();
