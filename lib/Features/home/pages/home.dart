@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 class HomeScreen extends StatelessWidget {
   final String username;
@@ -29,6 +30,25 @@ class HomeScreen extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
+            ElevatedButton(
+                onPressed: () async {
+                  var permission = await Geolocator.checkPermission();
+                  print("persiossion ::::$permission");
+                  if (permission == LocationPermission.denied) {
+                    permission = await Geolocator.requestPermission();
+                    if (permission != LocationPermission.whileInUse &&
+                        permission != LocationPermission.always) {
+                      // Handle the case where the user denied location permission
+                      // You can display an error message or prompt the user to grant permission
+                      return;
+                    }
+                  }
+                  Position position = await Geolocator.getCurrentPosition(
+                      desiredAccuracy: LocationAccuracy.high);
+
+                  print(position);
+                },
+                child: Text("get position"))
           ],
         ),
       ),
