@@ -76,16 +76,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             SizedBox(height: 16),
-            // _showGetPositionButton
-            //     ? ElevatedButton(
-            //         onPressed: _getCurrentLocation,
-            //         child: Text("Get Current Location"),
-            //       )
-            //     : SizedBox(
-            //         height: 3,
-            //         width: 3,
-            //       ),
-            SizedBox(height: 16),
             if (_isLoadingWeatherData)
               CircularProgressIndicator()
             else if (_weatherData != null)
