@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:skycast/Core/colors.dart';
 
 import '../services/weather-service.dart';
 
 class HomeScreen extends StatefulWidget {
   final String username;
 
-  HomeScreen({required this.username});
+  const HomeScreen({super.key, required this.username});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool _showGetPositionButton = true;
   bool _isLoadingWeatherData = true;
   Map<String, dynamic>? _weatherData;
 
@@ -42,10 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         _isLoadingWeatherData = false;
       });
-      print(e.toString());
     }
   }
 
+  @override
   void initState() {
     _getCurrentLocation();
     super.initState();
@@ -54,61 +54,86 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors().backgroundColor,
       appBar: AppBar(
-        title: Text('Home'),
+        backgroundColor: AppColors().secondaryColor,
+        title: const Text('Home'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 50.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 16),
+              if (_isLoadingWeatherData)
+                const CircularProgressIndicator()
+              else if (_weatherData != null)
+                Column(
+                  children: [
+                    Text(
+                      '${_weatherData!['location']['name']}, ${_weatherData!['location']['country']}',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      '${_weatherData!['current']['condition']['text']}',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                    const SizedBox(height: 8),
+                    Image.network(
+                      'https:' + _weatherData!['current']['condition']['icon'],
+                      scale: 1.0,
+                      width: 64.0,
+                      height: 64.0,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      '${_weatherData!['current']['temp_c']}°C',
+                      style: const TextStyle(fontSize: 48),
+                    ),
+                  ],
+                )
+              else
+                const Text(
+                  'Tap the button to get your current location',
+                  style: TextStyle(fontSize: 24),
+                ),
+            ],
+          ),
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
           children: [
-            Text(
-              'Welcome,',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            SizedBox(
+              height: 150, // Set the desired height here
+              child: DrawerHeader(
+                decoration: BoxDecoration(
+                  color: AppColors().secondaryColor,
+                ),
+                child: Center(child: Text('Welcome ${widget.username}')),
               ),
             ),
-            SizedBox(height: 8),
-            Text(
-              widget.username,
-              style: TextStyle(
-                fontSize: 20,
-              ),
+            ListTile(
+              title: const Text('Item 1'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
             ),
-            SizedBox(height: 16),
-            if (_isLoadingWeatherData)
-              CircularProgressIndicator()
-            else if (_weatherData != null)
-              Column(
-                children: [
-                  Text(
-                    '${_weatherData!['location']['name']}, ${_weatherData!['location']['country']}',
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    '${_weatherData!['current']['condition']['text']}',
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  SizedBox(height: 8),
-                  Image.network(
-                    'https:' + _weatherData!['current']['condition']['icon'],
-                    scale: 1.0,
-                    width: 64.0,
-                    height: 64.0,
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    '${_weatherData!['current']['temp_c']}°C',
-                    style: TextStyle(fontSize: 48),
-                  ),
-                ],
-              )
-            else
-              Text(
-                'Tap the button to get your current location',
-                style: TextStyle(fontSize: 24),
-              ),
+            ListTile(
+              title: const Text('Item 2'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
           ],
         ),
       ),
