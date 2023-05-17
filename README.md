@@ -49,6 +49,7 @@ Before running the SkyCast app, ensure you have the following prerequisites inst
     ```bash
    flutter pub get 
 4.Connect your Android or iOS device to your computer using a USB cable, or start an emulator/simulator.
+
 5.Run the app on your device or emulator using the following command:
    ```bash
    flutter run
