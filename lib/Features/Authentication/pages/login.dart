@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:skycast/Core/colors.dart';
+import 'package:skycast/Core/string_manager/colors.dart';
 import 'package:skycast/Features/home/pages/home.dart';
 
 class LoginScreen extends StatefulWidget {

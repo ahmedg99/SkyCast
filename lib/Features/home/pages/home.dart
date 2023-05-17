@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:skycast/Core/colors.dart';
-
+import 'package:skycast/Core/string_manager/colors.dart';
+import 'package:skycast/Features/Authentication/pages/login.dart';
+import 'dart:async';
+import '../../../Core/Widgets/bottomNvBar.dart';
+import '../../../Core/Widgets/drawer_header.dart';
 import '../services/weather-service.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -105,28 +108,29 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: Drawer(
         child: ListView(
           // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
           children: [
             SizedBox(
-              height: 150, // Set the desired height here
               child: DrawerHeader(
                 decoration: BoxDecoration(
                   color: AppColors().secondaryColor,
                 ),
-                child: Center(child: Text('Welcome ${widget.username}')),
+                child: builderHeader(context, widget.username),
               ),
             ),
             ListTile(
-              title: const Text('Item 1'),
+              leading: const Icon(Icons.favorite_border),
+              title: const Text('Profil'),
               onTap: () {
                 // Update the state of the app
-                // ...
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const LoginScreen()));
                 // Then close the drawer
-                Navigator.pop(context);
+                // Navigator.pop(context);
               },
             ),
             ListTile(
-              title: const Text('Item 2'),
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
               onTap: () {
                 // Update the state of the app
                 // ...
