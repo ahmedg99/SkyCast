@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:skycast/Core/string_manager/colors.dart';
 import 'package:skycast/Features/Authentication/pages/login.dart';
-import 'dart:async';
-import '../../../Core/Widgets/bottomNvBar.dart';
 import '../../../Core/Widgets/drawer_header.dart';
 import '../services/weather-service.dart';
 

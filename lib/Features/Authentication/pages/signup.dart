@@ -1,16 +1,31 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+import '../Domain/auth_service.dart';
 
-  @override
-  State<SignupScreen> createState() => _SignupScreenState();
-}
+class SignUpScreen extends StatelessWidget {
+  final AuthService _authService = AuthService();
 
-class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sign Up'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: Text('Sign up with Google'),
+          onPressed: () async {
+            try {
+              UserCredential userCredential =
+                  await _authService.signUpWithGoogle();
+              // User is signed up successfully, handle the next steps
+            } catch (error) {
+              // Handle sign-up error
+            }
+          },
+        ),
+      ),
+    );
   }
 }
