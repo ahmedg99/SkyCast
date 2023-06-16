@@ -24,9 +24,6 @@ SkyCast is a user-friendly weather application designed to provide real-time wea
 - Detailed weather information (temperature, humidity, wind speed, etc.)
 - User authentication using Firebase
 
-## Screenshots
-Authentication screen : 
-## Demo
 
 
 Before running the SkyCast app, ensure you have the following prerequisites installed:
